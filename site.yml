@@ -1,20 +1,10 @@
 - hosts: krabice.tomaso.cz
 
-  vars:
-    certbot_domains: 
-      - gogs.tomaso.cz
-      - grafana.tomaso.cz
-      - jp.tomaso.cz
-      - krabice.tomaso.cz
-      - mb.tomaso.cz
-      - nc.tomaso.cz
-
-#  roles:
-#  - weldpua2008.hugo
-
   roles:
   - certbot
   - backup
+  - geerlingguy.apache
+#  - weldpua2008.hugo
 
   tasks:
   - name: Install useful admin tools

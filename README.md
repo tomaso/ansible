@@ -10,6 +10,7 @@ The commands used in this README always explicitly specify configuration files.
 # Roles I use from galaxy:
 
 * weldpua2008.hugo
+* geerlingguy.apache
 
 # Servers
 
