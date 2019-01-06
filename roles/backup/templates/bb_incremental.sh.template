@@ -1,0 +1,8 @@
+ACCOUNT_ID={{ bb_account_id }}
+APP_KEY={{ bb_app_key }}
+BUCKET={{ bb_bucket }}
+DIR={{ bb_bucket_dir }}
+PASSPHRASE={{ gpg_passphrase }}
+
+duplicity --allow-source-mismatch incremental /data/nextcloud/data/ b2://${ACCOUNT_ID}:${APP_KEY}@${BUCKET}/${DIR}/
+

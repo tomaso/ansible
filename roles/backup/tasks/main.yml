@@ -1,0 +1,24 @@
+---
+- name: Install duplicity
+  zypper:
+    name: duplicity
+    state: latest
+
+- name: Create backup script
+  template:
+    src: templates/bb_incremental.sh.template
+    dest: /usr/local/sbin/bb_incremental.sh
+    owner: root
+    group: root
+    mode: '0700'
+    backup: no
+
+- name: Create cron job for the backup script
+  cron:
+    name: Duplicity backup to BackBlaze
+    weekday: 5
+    minute: 9
+    hour: 9
+    user: root
+    job: "/usr/local/sbin/bb_incremental.sh"
+    cron_file: ansible_bb-incremental

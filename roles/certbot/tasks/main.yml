@@ -1,0 +1,26 @@
+---
+
+- name: Install certbot scripts
+  zypper: 
+    name: certbot
+    state: latest
+
+- name: Configure certbot template
+  template:
+    src: templates/certbot-cli.ini
+    dest: /etc/certbot/cli.ini
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Certbot renewal cronjob
+  cron:
+    name: certbot renewal
+    weekday: 6
+    minute: 9
+    hour: 9
+    user: root
+    job: "/usr/bin/systemctl stop apache2 && /usr/bin/certbot certonly --config /etc/certbot/cli.ini && /usr/bin/systemctl start apache2"
+    cron_file: ansible_cerbot-renewal
+

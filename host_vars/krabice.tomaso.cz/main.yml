@@ -1,0 +1,6 @@
+---
+bb_account_id: "{{ vault_bb_account_id }}"
+bb_app_key: "{{ vault_bb_app_key }}"
+bb_bucket: "krabice-backup"
+bb_bucket_dir: "nextcloud_data"
+gpg_passphrase: "{{ vault_gpg_passphrase }}"
