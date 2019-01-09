@@ -1,32 +1,15 @@
 - hosts: krabice.tomaso.cz
 
   roles:
+  - common
   - certbot
   - backup
   - geerlingguy.apache
+  - grafana
 #  - weldpua2008.hugo
-
-  tasks:
-  - name: Install useful admin tools
-    zypper: 
-      name:
-        - git
-        - mc
-        - mosh
-        - nmap
-        - telnet
-      state: latest
 
 - hosts: tomaso.cz
 
-  vars:
-    certbot_domains:
-      - creachet.eu
-      - koubovi.net
-      - mb.tomaso.cz
-      - nc.tomaso.cz
-      - prisecnice.eu
-      - tomaso.cz
-
   roles:
+    - common
     - certbot

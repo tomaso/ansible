@@ -1,0 +1,12 @@
+---
+- name: Install grafana package
+  zypper: 
+    name: grafana 
+    state: present
+
+- name: Add zypper repository
+  zypper_repository: 
+    repo: 'https://download.opensuse.org/repositories/home:/gallochri:/grafana/openSUSE_Leap_15.0/home:gallochri:grafana.repo'
+  notify: 
+  - Install grafana package
+

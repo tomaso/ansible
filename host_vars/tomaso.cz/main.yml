@@ -1,0 +1,8 @@
+---
+certbot_domains:
+  - creachet.eu
+  - koubovi.net
+  - mb.tomaso.cz
+  - nc.tomaso.cz
+  - prisecnice.eu
+  - tomaso.cz

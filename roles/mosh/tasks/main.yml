@@ -1,9 +1,7 @@
 ---
 
 - name: 
-  yum: name={{ item }} state=present
-  with_items:
-   - mosh
+  zypper: {name: ['mosh'], state: present}
 
 - firewalld:
     service: 60001/udp
