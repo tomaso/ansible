@@ -1,0 +1,19 @@
+---
+- name: Install transmission package
+  zypper:
+    name: transmission
+    state: present
+
+- name: Ensure transmission-daemon is enabled and running
+  service:
+    name: transmission-daemon
+    state: started
+    enabled: true
+
+- name: Mount /var/lib/transmission/Downloads from remote
+  mount:
+    path: /var/lib/transmission/Downloads
+    src: //10.8.0.1/Downloads
+    fstype: cifs
+    opts: username=transmission,password={{ transmission_samba_pwd }},sec=ntlmssp,auto
+    state: present

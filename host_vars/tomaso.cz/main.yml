@@ -6,3 +6,5 @@ certbot_domains:
   - nc.tomaso.cz
   - prisecnice.eu
   - tomaso.cz
+
+transmission_samba_pwd: "{{ vault_transmission_samba_pwd }}"
