@@ -4,9 +4,28 @@
     name: grafana 
     state: present
 
-- name: Add zypper repository
-  zypper_repository: 
-    repo: 'https://download.opensuse.org/repositories/home:/gallochri:/grafana/openSUSE_Leap_15.0/home:gallochri:grafana.repo'
-  notify: 
-  - Install grafana package
+#- name: Add zypper repository for phantomjs
+#  zypper_repository: 
+#    repo: 'https://download.opensuse.org/repositories/home:/gallochri:/grafana/openSUSE_Leap_15.0/home:gallochri:grafana.repo'
+#    state: present
+#
+#- name: Add zypper repository for grafana
+#  zypper_repository: 
+#    repo: 'https://download.opensuse.org/repositories/server:/monitoring/openSUSE_Leap_15.0/server:monitoring.repo'
+#    state: present
 
+- name: Ensure grafana is enabled and running
+  service:
+    name: grafana-server
+    state: started
+    enabled: true
+
+# TODO: grafana.ini: change port to 3001 (variable), change admin pass from vault
+
+- name: Configure directory with Grafana dashboards
+  copy: src=files/dashboards/dashboards.yml dest=/etc/grafana/provisioning/dashboards/dashboards.yml
+
+- name: Copy Grafana dashboards
+  copy: src=files/dashboards/{{ item }} dest=/var/lib/grafana/dashboards/
+  with_items:
+    - system.json

@@ -6,6 +6,8 @@
   - backup
   - geerlingguy.apache
   - grafana
+  - influxdb
+  - telegraf
 #  - weldpua2008.hugo
 
 - hosts: tomaso.cz

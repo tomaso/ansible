@@ -1,0 +1,35 @@
+---
+- name: Install telegraf package
+  zypper: 
+    name: telegraf
+    state: present
+
+- name: Deploy telegraf.service
+  copy: src=files/telegraf.service dest=/etc/systemd/system/
+
+# This is needed because the rpm does not create one
+- name: Add telegraf group
+  group:
+    name: telegraf
+
+- name: Add telegraf user 
+  user:
+    name: telegraf
+    group: telegraf
+    shell: /sbin/nologin
+
+- name: Copy main telegraf.conf
+  copy: src=files/telegraf.conf dest=/etc/telegraf/telegraf.conf
+  register: telegraf_conf
+
+- name: Make sure telegraf service is running
+  service:
+    name: telegraf
+    state: restarted
+    enabled: true
+  when: telegraf_conf.changed
+
+- name: Set ipmi dev file ownership
+  file:
+    path: /dev/ipmi0
+    owner: telegraf
