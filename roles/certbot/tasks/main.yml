@@ -21,6 +21,6 @@
     minute: 9
     hour: 9
     user: root
-    job: "/usr/bin/systemctl stop apache2 && /usr/bin/certbot certonly --config /etc/certbot/cli.ini && /usr/bin/systemctl start apache2"
+    job: "/usr/bin/systemctl stop apache2; /usr/bin/certbot certonly --config /etc/certbot/cli.ini; /usr/bin/systemctl start apache2"
     cron_file: ansible_cerbot-renewal
 
