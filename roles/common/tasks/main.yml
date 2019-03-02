@@ -5,6 +5,7 @@
       - git
       - mc
       - mosh
+      - ncdu
       - nmap
       - telnet
     state: latest

@@ -22,8 +22,17 @@ krabice.tomaso.cz | SUCCESS => {"changed": false,"ping": "pong"}
 tomaso.cz | SUCCESS => {"changed": false,"ping": "pong"}
 ```
 
+To execute the playbook only for `frontend` servers:
+
+```
+$ ansible-playbook -i ./hosts -l frontend site.yml -u root --vault-id ~/.ansible_vault_pass
+```
+
 # My roles
 
 * backup
 * certbot
-
+* grafana
+* influxdb
+* telegraf
+* transmission
