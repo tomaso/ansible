@@ -4,5 +4,6 @@ BUCKET={{ bb_bucket }}
 DIR={{ bb_bucket_dir }}
 PASSPHRASE={{ gpg_passphrase }}
 
+export PASSPHRASE
 duplicity --allow-source-mismatch incremental /data/nextcloud/data/ b2://${ACCOUNT_ID}:${APP_KEY}@${BUCKET}/${DIR}/
 
