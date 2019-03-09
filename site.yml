@@ -16,3 +16,8 @@
     - common
     - certbot
     - transmission
+
+- hosts: nuc.tomaso.cz
+
+  roles:
+    - common
