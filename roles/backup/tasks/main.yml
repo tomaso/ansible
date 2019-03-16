@@ -22,3 +22,12 @@
     user: root
     job: "/usr/local/sbin/bb_incremental.sh"
     cron_file: ansible_bb-incremental
+
+- name: Create directory for backup logs
+  file:
+    path: /var/log/bb
+    state: directory
+    mode: "u=rw,g=x,o=x"
+    owner: root
+    group: root
+

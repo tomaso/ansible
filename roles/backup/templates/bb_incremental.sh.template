@@ -4,6 +4,15 @@ BUCKET={{ bb_bucket }}
 DIR={{ bb_bucket_dir }}
 PASSPHRASE={{ gpg_passphrase }}
 
-export PASSPHRASE
-duplicity --allow-source-mismatch incremental /data/nextcloud/data/ b2://${ACCOUNT_ID}:${APP_KEY}@${BUCKET}/${DIR}/
+LOGFILE=/var/log/bb/$(date -I).log
+DUMPFILE=/var/log/bb/$(date -I).txt
 
+export PASSPHRASE
+duplicity --allow-source-mismatch incremental /data/nextcloud/data/ b2://${ACCOUNT_ID}:${APP_KEY}@${BUCKET}/${DIR}/ &>${LOGFILE}
+
+<"${LOGFILE}" tail -n +4 | head -n -2 | awk -v ts=$(date +%s) '
+	BEGIN {printf("# DDL\nCREATE DATABASE boxbackup\n\n# DML\n# CONTEXT-DATABASE: boxbackup\n");} 
+	{printf("bb %s=%s %s000000000\n", $1, $2, ts)} 
+' >"${DUMPFILE}"
+
+/usr/bin/influx -import -path="${DUMPFILE}"
