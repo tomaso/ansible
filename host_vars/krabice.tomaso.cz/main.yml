@@ -7,10 +7,11 @@ gpg_passphrase: "{{ vault_gpg_passphrase }}"
 
 
 certbot_domains: 
+  - krabice.tomaso.cz
   - gogs.tomaso.cz
+  - gotour.tomaso.cz
   - grafana.tomaso.cz
   - jp.tomaso.cz
-  - krabice.tomaso.cz
   - mb.tomaso.cz
   - nc.tomaso.cz
 
