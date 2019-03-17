@@ -10,7 +10,7 @@ certbot_domains:
   - krabice.tomaso.cz
   - gogs.tomaso.cz
   - gotour.tomaso.cz
-  - grafana.tomaso.cz
+  - krabice.tomaso.cz
   - jp.tomaso.cz
   - mb.tomaso.cz
   - nc.tomaso.cz
@@ -21,11 +21,11 @@ apache_listen_ip: "*"
 apache_listen_port: 80
 apache_listen_port_ssl: 443
 apache_vhosts_ssl:
-  - servername: "grafana.tomaso.cz"
-    documentroot: "/srv/www/htdocs/grafana"
-    certificate_file: "/etc/certbot/live/grafana.tomaso.cz/cert.pem"
-    certificate_key_file: "/etc/certbot/live/grafana.tomaso.cz/privkey.pem"
-    certificate_chain_file: "/etc/certbot/live/grafana.tomaso.cz/fullchain.pem"
+  - servername: "krabice.tomaso.cz"
+    documentroot: "/srv/www/htdocs/krabice"
+    certificate_file: "/etc/certbot/live/krabice.tomaso.cz/cert.pem"
+    certificate_key_file: "/etc/certbot/live/krabice.tomaso.cz/privkey.pem"
+    certificate_chain_file: "/etc/certbot/live/krabice.tomaso.cz/fullchain.pem"
     extra_parameters: |
       ProxyPass / http://localhost:3001/
       ProxyPassReverse / http://localhost:3001/
