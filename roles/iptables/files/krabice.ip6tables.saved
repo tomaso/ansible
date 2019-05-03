@@ -1,0 +1,91 @@
+*nat
+:PREROUTING ACCEPT [501638:246106063]
+:INPUT ACCEPT [39324:3187054]
+:OUTPUT ACCEPT [18374:1542049]
+:POSTROUTING ACCEPT [18374:1542049]
+COMMIT
+*mangle
+:PREROUTING ACCEPT [208831711:241703806040]
+:INPUT ACCEPT [208368891:241460964830]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [204085379:395599970591]
+:POSTROUTING ACCEPT [204085379:395599970591]
+COMMIT
+*raw
+:PREROUTING ACCEPT [208730456:241694728152]
+:OUTPUT ACCEPT [204085379:395599970591]
+COMMIT
+*security
+:INPUT ACCEPT [208343890:241459356786]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [204085380:395599970651]
+COMMIT
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [204085380:395599970651]
+:FORWARD_IN_ZONES - [0:0]
+:FORWARD_IN_ZONES_SOURCE - [0:0]
+:FORWARD_OUT_ZONES - [0:0]
+:FORWARD_OUT_ZONES_SOURCE - [0:0]
+:FORWARD_direct - [0:0]
+:FWDI_public - [0:0]
+:FWDI_public_allow - [0:0]
+:FWDI_public_deny - [0:0]
+:FWDI_public_log - [0:0]
+:FWDO_public - [0:0]
+:FWDO_public_allow - [0:0]
+:FWDO_public_deny - [0:0]
+:FWDO_public_log - [0:0]
+:INPUT_ZONES - [0:0]
+:INPUT_ZONES_SOURCE - [0:0]
+:INPUT_direct - [0:0]
+:IN_public - [0:0]
+:IN_public_allow - [0:0]
+:IN_public_deny - [0:0]
+:IN_public_log - [0:0]
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -j INPUT_direct
+-A INPUT -j INPUT_ZONES_SOURCE
+-A INPUT -j INPUT_ZONES
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+-A INPUT -j REJECT --reject-with icmp6-adm-prohibited
+-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i lo -j ACCEPT
+-A FORWARD -j FORWARD_direct
+-A FORWARD -j FORWARD_IN_ZONES_SOURCE
+-A FORWARD -j FORWARD_IN_ZONES
+-A FORWARD -j FORWARD_OUT_ZONES_SOURCE
+-A FORWARD -j FORWARD_OUT_ZONES
+-A FORWARD -m conntrack --ctstate INVALID -j DROP
+-A FORWARD -j REJECT --reject-with icmp6-adm-prohibited
+-A OUTPUT -p tcp -m tcp --sport 22 -m comment --comment "ssh" -j ACCEPT
+-A OUTPUT -p tcp -m tcp --sport 443 -m comment --comment "https" -j ACCEPT
+-A FORWARD_IN_ZONES -g FWDI_public
+-A FORWARD_OUT_ZONES -g FWDO_public
+-A FWDI_public -j FWDI_public_log
+-A FWDI_public -j FWDI_public_deny
+-A FWDI_public -j FWDI_public_allow
+-A FWDI_public -p ipv6-icmp -j ACCEPT
+-A FWDO_public -j FWDO_public_log
+-A FWDO_public -j FWDO_public_deny
+-A FWDO_public -j FWDO_public_allow
+-A INPUT_ZONES -g IN_public
+-A IN_public -j IN_public_log
+-A IN_public -j IN_public_deny
+-A IN_public -j IN_public_allow
+-A IN_public -p ipv6-icmp -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -d fe80::/64 -p udp -m udp --dport 546 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p udp -m udp --dport 137 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p udp -m udp --dport 138 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 139 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 445 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 443 -m conntrack --ctstate NEW -m comment --comment "https" -j ACCEPT
+-A IN_public_allow -p udp -m udp --dport 60000:61000 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 1194 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 8895 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p udp -m udp --dport 1900 -m conntrack --ctstate NEW -j ACCEPT
+COMMIT

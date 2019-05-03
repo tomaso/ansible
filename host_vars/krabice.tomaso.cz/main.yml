@@ -30,3 +30,5 @@ apache_vhosts_ssl:
       ProxyPass / http://localhost:3001/
       ProxyPassReverse / http://localhost:3001/
 
+iptables_save_file: "krabice.iptables.saved"
+ip6tables_save_file: "krabice.ip6tables.saved"
