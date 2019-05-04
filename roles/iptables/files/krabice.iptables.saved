@@ -24,6 +24,7 @@ COMMIT
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [466493772:523219602968]
+:OUTPUT_IPV4 - [0:0]
 :FORWARD_IN_ZONES - [0:0]
 :FORWARD_IN_ZONES_SOURCE - [0:0]
 :FORWARD_OUT_ZONES - [0:0]
@@ -60,8 +61,10 @@ COMMIT
 -A FORWARD -j FORWARD_OUT_ZONES
 -A FORWARD -m conntrack --ctstate INVALID -j DROP
 -A FORWARD -j REJECT --reject-with icmp-host-prohibited
--A OUTPUT -p tcp -m tcp --sport 22 -m comment --comment "ssh" -j ACCEPT
--A OUTPUT -p tcp -m tcp --sport 443 -m comment --comment "https" -j ACCEPT
+-A OUTPUT -j OUTPUT_IPV4
+-A OUTPUT_IPV4 -p tcp -m tcp --sport 22 -m comment --comment "ssh" -j ACCEPT
+-A OUTPUT_IPV4 -p tcp -m tcp --sport 443 -m comment --comment "https" -j ACCEPT
+-A OUTPUT_IPV4 -p tcp -m tcp --sport 8895 -m comment --comment "serviio" -j ACCEPT
 -A FORWARD_IN_ZONES -g FWDI_public
 -A FORWARD_OUT_ZONES -g FWDO_public
 -A FWDI_public -j FWDI_public_log

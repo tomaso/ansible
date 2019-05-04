@@ -2,15 +2,19 @@
 - name: Copy iptables.save to /tmp
   copy: src=files/{{ iptables_save_file }} dest=/tmp/iptables.save
   register: iptables_save
+  tags: iptables
 
 - name: Load iptables rules from a file
   command: /usr/sbin/iptables-restore /tmp/iptables.save
   when: iptables_save.changed
+  tags: iptables
 
 - name: Copy ip6tables.save to /tmp
   copy: src=files/{{ ip6tables_save_file }} dest=/tmp/ip6tables.save
   register: ip6tables_save
+  tags: iptables
 
 - name: Load ip6tables rules from a file
   command: /usr/sbin/ip6tables-restore /tmp/ip6tables.save
   when: ip6tables_save.changed
+  tags: iptables
