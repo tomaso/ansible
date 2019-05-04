@@ -23,9 +23,9 @@ apache_listen_port_ssl: 443
 apache_vhosts_ssl:
   - servername: "krabice.tomaso.cz"
     documentroot: "/srv/www/htdocs/krabice"
-    certificate_file: "/etc/certbot/live/krabice.tomaso.cz/cert.pem"
-    certificate_key_file: "/etc/certbot/live/krabice.tomaso.cz/privkey.pem"
-    certificate_chain_file: "/etc/certbot/live/krabice.tomaso.cz/fullchain.pem"
+    certificate_file: "/etc/letsencrypt/live/krabice.tomaso.cz/cert.pem"
+    certificate_key_file: "/etc/letsencrypt/live/krabice.tomaso.cz/privkey.pem"
+    certificate_chain_file: "/etc/letsencrypt/live/krabice.tomaso.cz/fullchain.pem"
     extra_parameters: |
       ProxyPass / http://localhost:3001/
       ProxyPassReverse / http://localhost:3001/
