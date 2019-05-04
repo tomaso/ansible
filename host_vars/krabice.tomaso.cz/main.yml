@@ -20,15 +20,6 @@ apache_vhosts_version: "2.4"
 apache_listen_ip: "*"
 apache_listen_port: 80
 apache_listen_port_ssl: 443
-apache_vhosts_ssl:
-  - servername: "krabice.tomaso.cz"
-    documentroot: "/srv/www/htdocs/krabice"
-    certificate_file: "/etc/letsencrypt/live/krabice.tomaso.cz/cert.pem"
-    certificate_key_file: "/etc/letsencrypt/live/krabice.tomaso.cz/privkey.pem"
-    certificate_chain_file: "/etc/letsencrypt/live/krabice.tomaso.cz/fullchain.pem"
-    extra_parameters: |
-      ProxyPass / http://localhost:3001/
-      ProxyPassReverse / http://localhost:3001/
 
 iptables_save_file: "krabice.iptables.saved"
 ip6tables_save_file: "krabice.ip6tables.saved"
