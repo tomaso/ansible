@@ -6,11 +6,13 @@ bb_bucket_dir: "nextcloud_data"
 gpg_passphrase: "{{ vault_gpg_passphrase }}"
 
 
+# krabice.tomaso.cz needs to be first in the list
+# because it determines the path of generated .pem files
 certbot_domains: 
+  - krabice.tomaso.cz
   - gogs.tomaso.cz
   - gotour.tomaso.cz
   - grafana.tomaso.cz
-  - krabice.tomaso.cz
   - jp.tomaso.cz
   - mb.tomaso.cz
   - nc.tomaso.cz
