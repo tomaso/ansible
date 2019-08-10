@@ -8,6 +8,7 @@
   - grafana
   - influxdb
   - iptables
+  - redis
   - telegraf
 #  - weldpua2008.hugo
 

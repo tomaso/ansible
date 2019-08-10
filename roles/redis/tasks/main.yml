@@ -1,0 +1,23 @@
+---
+- name: Install main redis package
+  zypper:
+    name: redis
+    state: present
+
+- name: Install php redis package
+  zypper:
+    name: php7-redis
+    state: present
+
+- name: Copy main redis.conf
+  copy: src=files/redis.conf dest=/etc/redis/redis.conf
+    owner: redis
+    group: redis
+  register: redis_conf
+
+- name: Ensure redis is running
+  service:
+    name: redis@redis
+    state: restarted
+    enabled: true
+  when: redis_conf.changed
