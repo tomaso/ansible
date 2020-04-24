@@ -5,23 +5,31 @@ bb_bucket: "krabice-backup"
 bb_bucket_dir: "nextcloud_data"
 gpg_passphrase: "{{ vault_gpg_passphrase }}"
 
-
-# krabice.tomaso.cz needs to be first in the list
-# because it determines the path of generated .pem files
-certbot_domains: 
-  - krabice.tomaso.cz
-  - gogs.tomaso.cz
-  - gotour.tomaso.cz
-  - grafana.tomaso.cz
-  - jp.tomaso.cz
-  - mb.tomaso.cz
-  - nc.tomaso.cz
-
-apache_daemon: httpd-prefork
+apache_daemon: "httpd-prefork"
 apache_vhosts_version: "2.4"
 apache_listen_ip: "*"
 apache_listen_port: 80
 apache_listen_port_ssl: 443
 
+apache_vhosts_ssl:
+  - servername: adminer.tomaso.cz
+    certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
+    documentroot: /data/nextcloud/data/renik/files/webs/creachet_web
+
+
 iptables_save_file: "krabice.iptables.saved"
 ip6tables_save_file: "krabice.ip6tables.saved"
+
+# tomaso.cz should be first
+certbot_domains: 
+  - tomaso.cz
+  - adminer.tomaso.cz
+  - grafana.tomaso.cz
+  - icinga.tomaso.cz
+  - imap.tomaso.cz
+  - k8s.tomaso.cz
+  - krabice.tomaso.cz
+  - nc.tomaso.cz
+  - mb.tomaso.cz
