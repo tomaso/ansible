@@ -90,5 +90,9 @@ COMMIT
 -A IN_public_allow -p udp -m udp --dport 60000:61000 -m conntrack --ctstate NEW -j ACCEPT
 -A IN_public_allow -p tcp -m tcp --dport 1194 -m conntrack --ctstate NEW -j ACCEPT
 -A IN_public_allow -p tcp -m tcp --dport 8895 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 8080 -m conntrack --ctstate NEW -j ACCEPT
 -A IN_public_allow -p udp -m udp --dport 1900 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -i br0 -p udp -m udp --dport 53 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -i br0 -p tcp -m tcp --dport 53 -m conntrack --ctstate NEW -j ACCEPT
+-A IN_public_allow -i br0 -j ACCEPT
 COMMIT

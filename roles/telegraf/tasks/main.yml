@@ -1,4 +1,13 @@
 ---
+- name: "Suse | Install basic repo file"
+  zypper_repository:
+    repo: "http://download.opensuse.org/repositories/devel:/languages:/go/openSUSE_Factory/"
+    name: The Go Programming Language (openSUSE_Factory)
+    state: present
+    runrefresh: True
+    auto_import_keys: True
+  become: yes
+
 - name: Install telegraf package
   zypper: 
     name: telegraf
@@ -33,3 +42,9 @@
   file:
     path: /dev/ipmi0
     owner: telegraf
+
+- name: Make sure hddtemp service is running
+  service:
+    name: hddtemp
+    state: started
+    enabled: true

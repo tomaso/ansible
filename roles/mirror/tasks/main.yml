@@ -1,0 +1,27 @@
+- name: Create cron job to mirror CentOS 7 repos
+  cron:
+    name: Mirror CentOS 7 repos
+    minute: '10'
+    hour: '1'
+    user: 'root'
+    job: 'for i in os updates extras; do rsync -avSHP --delete rsync://mirror.karneval.cz/centos/7/${i}/x86_64/ /data/mirror/centos/7/${i}/x86_64/; done'
+    cron_file: mirror_centos_os_7
+
+- name: Create cron job to mirror os CentOS repo
+  cron:
+    name: Mirror main CentOS repos
+    minute: '10'
+    hour: '2'
+    user: 'root'
+    job: 'rsync -avSHP --delete rsync://mirror.karneval.cz/centos/8/BaseOS/x86_64/ /data/mirror/centos/8//BaseOS/x86_64/'
+    cron_file: mirror_centos_os_8
+
+- name: Create cron job to mirror Raspbian repos
+  cron:
+    name: Mirror main raspbian repos
+    minute: '10'
+    hour: '3'
+    user: 'root'
+    job: 'rsync -avSHP --delete archive.raspbian.org::archive /data/mirror/raspbian/'
+    cron_file: mirror_raspbian
+

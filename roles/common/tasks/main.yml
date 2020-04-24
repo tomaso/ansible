@@ -1,6 +1,6 @@
 ---
 - name: Install useful admin tools
-  zypper: 
+  package: 
     name:
       - git
       - mc

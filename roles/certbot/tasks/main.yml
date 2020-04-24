@@ -8,7 +8,7 @@
 - name: Configure certbot template
   template:
     src: templates/certbot-cli.ini
-    dest: /etc/certbot/cli.ini
+    dest: /etc/letsencrypt/cli.ini
     owner: root
     group: root
     mode: '0644'
@@ -17,10 +17,10 @@
 - name: Certbot renewal cronjob
   cron:
     name: certbot renewal
-    weekday: 6
-    minute: 9
-    hour: 9
-    user: root
-    job: "/usr/bin/systemctl stop apache2; /usr/bin/certbot -n certonly --config /etc/certbot/cli.ini; /usr/bin/systemctl start apache2"
+    weekday: '6'
+    minute: '9'
+    hour: '9'
+    user: 'root'
+    job: "/usr/bin/systemctl stop apache2; /usr/bin/certbot -n certonly --config /etc/letsencrypt/cli.ini; /usr/bin/systemctl start apache2"
     cron_file: ansible_cerbot-renewal
 
