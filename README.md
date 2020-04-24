@@ -25,7 +25,7 @@ tomaso.cz | SUCCESS => {"changed": false,"ping": "pong"}
 To execute the playbook only for `frontend` servers:
 
 ```
-$ ansible-playbook -i ./hosts -l frontend site.yml -u root --vault-id ~/.ansible_vault_pass
+$ ansible-playbook site.yml -i ./hosts -l frontend -u root --vault-id ~/.ansible_vault_pass
 ```
 
 # My roles
@@ -36,3 +36,6 @@ $ ansible-playbook -i ./hosts -l frontend site.yml -u root --vault-id ~/.ansible
 * influxdb
 * telegraf
 * transmission
+* k8s-* (various Kubernetes related roles for my tests)
+
+

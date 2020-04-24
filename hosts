@@ -1,9 +1,18 @@
-tomaso.cz
-krabice.tomaso.cz
-nuc.tomaso.cz
-
 [frontend]
 tomaso.cz
 
 [backend]
 krabice.tomaso.cz
+
+[desktop]
+nuc.tomaso.cz
+
+[k8s]
+knode1.tomaso.cz
+knode2.tomaso.cz
+knode3.tomaso.cz
+knode4.tomaso.cz
+knode5.tomaso.cz
+
+[k8s_master]
+knode1.tomaso.cz
