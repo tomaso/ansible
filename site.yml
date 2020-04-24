@@ -8,6 +8,7 @@
   - grafana
   - influxdb
   - iptables
+  - mirror
   - redis
   - telegraf
 #  - weldpua2008.hugo
@@ -23,3 +24,13 @@
 
   roles:
     - common
+
+- hosts: 
+    - knode1.tomaso.cz
+    - knode2.tomaso.cz
+    - knode3.tomaso.cz
+    - knode4.tomaso.cz
+    - knode5.tomaso.cz
+
+  roles:
+    - k8s_playground
