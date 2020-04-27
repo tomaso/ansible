@@ -32,5 +32,4 @@ certbot_domains:
   - k8s.tomaso.cz
   - krabice.tomaso.cz
   - nc.tomaso.cz
-  - mb.tomaso.cz
   - harbor.tomaso.cz
