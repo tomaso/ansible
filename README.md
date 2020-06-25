@@ -38,4 +38,6 @@ $ ansible-playbook site.yml -i ./hosts -l frontend -u root --vault-id ~/.ansible
 * transmission
 * k8s-* (various Kubernetes related roles for my tests)
 
+# Details
 
+More details can be found in [Notes.md](NOTES.md)
