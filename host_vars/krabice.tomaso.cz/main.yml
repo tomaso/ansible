@@ -14,7 +14,7 @@ apache_listen_port_ssl: 443
 
 apache_vhosts:
   - servername: krabice.tomaso.cz
-    serveralias: *.tomaso.cz
+    serveralias: "*.tomaso.cz"
     extra_parameters: |
       RewriteEngine On
       RewriteCond %{HTTP_HOST} ^(.+)\.tomaso\.cz$
