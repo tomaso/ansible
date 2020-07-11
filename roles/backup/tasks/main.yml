@@ -1,6 +1,6 @@
 ---
 - name: Install duplicity
-  zypper:
+  package:
     name: duplicity
     state: latest
 
