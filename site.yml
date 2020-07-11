@@ -3,14 +3,14 @@
   roles:
   - common
   - certbot
-  - backup
+#  - backup
   - geerlingguy.apache
-  - grafana
-  - influxdb
-  - iptables
+#  - grafana
+#  - influxdb
+#  - iptables
   - mirror
-  - redis
-  - telegraf
+#  - redis
+#  - telegraf
 #  - weldpua2008.hugo
 
 - hosts: tomaso.cz
