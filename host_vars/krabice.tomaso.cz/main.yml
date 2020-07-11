@@ -5,18 +5,55 @@ bb_bucket: "krabice-backup"
 bb_bucket_dir: "nextcloud_data"
 gpg_passphrase: "{{ vault_gpg_passphrase }}"
 
-apache_daemon: "httpd-prefork"
+apache_service: "httpd"
+apache_daemon: "httpd"
 apache_vhosts_version: "2.4"
 apache_listen_ip: "*"
 apache_listen_port: 80
 apache_listen_port_ssl: 443
 
+apache_vhosts:
+  - servername: krabice.tomaso.cz
+    serveralias: *.tomaso.cz
+    extra_parameters: |
+      RewriteEngine On
+      RewriteCond %{HTTP_HOST} ^(.+)\.tomaso\.cz$
+      RewriteRule ^(.*)$ https://%1.tomaso.cz$1 [R=302,L]
+
 apache_vhosts_ssl:
-  - servername: adminer.tomaso.cz
+  - servername: krabice.tomaso.cz
     certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
     certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
     certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
-    documentroot: /data/nextcloud/data/renik/files/webs/creachet_web
+    documentroot: /var/www/html
+    extra_parameters: |
+      Alias /private /data/private
+      <Directory "/data/private/">
+                Options Indexes MultiViews
+                IndexOptions Charset=UTF-8
+                AllowOverride None
+                Require all granted
+      </Directory>
+      <Location /private>
+                DAV On
+                AuthType Digest
+                AuthName "webdav1digest"
+                AuthUserFile /data/digestpasswd.dav
+                Require valid-user
+      </Location>
+
+  - servername: nc.tomaso.cz
+    certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
+    documentroot: /data/nextcloud
+    extra_parameters: |
+      <Directory "/data/nextcloud">
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Require all granted
+      </Directory>
+    
 
 
 iptables_save_file: "krabice.iptables.saved"
