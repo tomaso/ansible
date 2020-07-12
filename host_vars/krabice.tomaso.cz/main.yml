@@ -12,13 +12,30 @@ apache_listen_ip: "*"
 apache_listen_port: 80
 apache_listen_port_ssl: 443
 
+apache_global_vhost_settings: |
+  DirectoryIndex index.php index.html
+  Alias /private /data/private
+  <Directory "/data/private/">
+    Options Indexes MultiViews
+    IndexOptions Charset=UTF-8
+    AllowOverride None
+    Require all granted
+  </Directory>
+  <Location /private>
+    DAV On
+    AuthType Digest
+    AuthName "webdav1digest"
+    AuthUserFile /data/digestpasswd.dav
+    Require valid-user
+  </Location>
+
 apache_vhosts:
   - servername: krabice.tomaso.cz
     serveralias: "*.tomaso.cz"
     extra_parameters: |
       RewriteEngine On
-      RewriteCond %{HTTP_HOST} ^(.+)\.tomaso\.cz$
-      RewriteRule ^(.*)$ https://%1.tomaso.cz$1 [R=302,L]
+        RewriteCond %{HTTP_HOST} ^(.+)\.tomaso\.cz$
+        RewriteRule ^(.*)$ https://%1.tomaso.cz$1 [R=302,L]
 
 apache_vhosts_ssl:
   - servername: krabice.tomaso.cz
@@ -26,21 +43,6 @@ apache_vhosts_ssl:
     certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
     certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
     documentroot: /var/www/html
-    extra_parameters: |
-      Alias /private /data/private
-      <Directory "/data/private/">
-                Options Indexes MultiViews
-                IndexOptions Charset=UTF-8
-                AllowOverride None
-                Require all granted
-      </Directory>
-      <Location /private>
-                DAV On
-                AuthType Digest
-                AuthName "webdav1digest"
-                AuthUserFile /data/digestpasswd.dav
-                Require valid-user
-      </Location>
 
   - servername: nc.tomaso.cz
     certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
