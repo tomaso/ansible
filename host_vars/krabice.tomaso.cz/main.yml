@@ -49,14 +49,22 @@ apache_vhosts_ssl:
     certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
     certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
     documentroot: /data/nextcloud
-    extra_parameters: |
-      <Directory "/data/nextcloud">
-        AllowOverride All
-        Options -Indexes +FollowSymLinks
-        Require all granted
-      </Directory>
+
+  - servername: adminer.tomaso.cz
+    certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
+    documentroot: /var/www/html/adminer
     
 
+firewalld_zones:
+  - name: public
+    services:
+    - ssh
+    - samba
+    - http
+    - https
+    - openvpn
 
 iptables_save_file: "krabice.iptables.saved"
 ip6tables_save_file: "krabice.ip6tables.saved"

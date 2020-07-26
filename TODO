@@ -34,12 +34,14 @@ iptables -t nat -I POSTROUTING -o tun0 -d 10.8.0.2 -j MASQUERADE
 = 
 
 TODO:
+- wget adminer automatically from https://www.adminer.org/latest.php
+
 - use https://www.cyberciti.biz/faq/install-php-redis-on-centos-8-rhel-8-linux/
 
 - symlink redis to /db/redis/
 
-- firewalld 
-
 - fail2ban
 
+!!
 - replace duplicity with restic (in a container?)
+- backup nextcloud DB dump
