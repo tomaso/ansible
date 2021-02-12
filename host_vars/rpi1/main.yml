@@ -1,0 +1,71 @@
+---
+apache_service: "apache2"
+apache_daemon: "apache2"
+apache_vhosts_version: "2.4"
+apache_listen_ip: "*"
+apache_listen_port: 80
+apache_listen_port_ssl: 443
+apache_mods_enabled:
+  - proxy.load
+  - proxy_http.load 
+  - proxy_http2.load 
+  - proxy_wstunnel.load
+
+apache_vhosts:
+  - servername: kouba.xyz
+    serveralias: "kouba.xyz"
+    documentroot: /var/www/html/kouba.xyz
+    extra_parameters: |
+      RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^kouba\.xyz$
+        RewriteRule ^(.*)$ https://kouba.xyz$1 [R=302,L]
+  - servername: ha.kouba.xyz
+    serveralias: "ha.kouba.xyz"
+    documentroot: /var/www/html/kouba.xyz
+    extra_parameters: |
+      RewriteEngine On
+        RewriteCond %{HTTP_HOST} ^ha\.kouba\.xyz$
+        RewriteRule ^(.*)$ https://ha.kouba.xyz$1 [R=302,L]
+  - servername: creachet.eu
+    serveralias: "creachet.eu"
+    documentroot: /var/www/html/creachet.eu
+  - servername: prisecnice.eu
+    serveralias: "prisecnice.eu"
+    documentroot: /var/www/html/prisecnice.eu
+
+apache_vhosts_ssl:
+  - servername: kouba.xyz
+    serveralias: "kouba.xyz"
+    certificate_file: /etc/letsencrypt/live/kouba.xyz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/kouba.xyz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/kouba.xyz/fullchain.pem
+    documentroot: /var/www/html/kouba.xyz
+  - servername: ha.kouba.xyz
+    serveralias: "ha.kouba.xyz"
+    certificate_file: /etc/letsencrypt/live/kouba.xyz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/kouba.xyz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/kouba.xyz/fullchain.pem
+    documentroot: /var/www/html/kouba.xyz
+    extra_parameters: |
+      ProxyPass / http://172.17.0.16:8123/
+      ProxyPassReverse / http://172.17.0.16:8123/
+      ProxyPass "/api/websocket"  "wss://172.17.0.16:8123/api/websocket"
+      ProxyPassReverse /api/websocket http://172.17.0.16:8123/api/websocket
+  - servername: creachet.eu
+    serveralias: "creachet.eu"
+    certificate_file: /etc/letsencrypt/live/kouba.xyz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/kouba.xyz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/kouba.xyz/fullchain.pem
+    documentroot: /var/www/html/creachet.eu
+  - servername: prisecnice.eu
+    serveralias: "prisecnice.eu"
+    certificate_file: /etc/letsencrypt/live/kouba.xyz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/kouba.xyz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/kouba.xyz/fullchain.pem
+    documentroot: /var/www/html/prisecnice.eu
+
+certbot_domains:
+  - kouba.xyz
+  - ha.kouba.xyz
+  - creachet.eu
+  - prisecnice.eu

@@ -35,3 +35,10 @@
 
   roles:
     - k8s_playground
+
+- hosts: rpi1
+  roles:
+    - certbot
+    - deconz
+    - hass
+    - geerlingguy.apache

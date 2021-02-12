@@ -21,6 +21,6 @@
     minute: '9'
     hour: '9'
     user: 'root'
-    job: "/usr/bin/systemctl stop {{ apache_service }}; /usr/bin/certbot -n certonly --config /etc/letsencrypt/cli.ini; /usr/bin/systemctl start {{ apache_service }}"
+    job: "systemctl stop {{ apache_service }}; /usr/bin/certbot -n certonly --config /etc/letsencrypt/cli.ini; systemctl start {{ apache_service }}"
     cron_file: ansible_cerbot-renewal
 

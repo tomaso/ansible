@@ -1,0 +1,18 @@
+---
+- name: Install podman
+  package:
+    name: podman
+    state: present
+
+- name: Pull hass image
+  containers.podman.podman_image:
+    name: homeassistant/home-assistant
+
+- name: Create conf dir
+  file:
+    path: /etc/podman/hass
+    state: directory
+    mode: "u=rw,g=wx,o=rwx"
+
+
+# TODO: create and enable systemd service

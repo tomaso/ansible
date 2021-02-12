@@ -42,6 +42,8 @@ TODO:
 
 - fail2ban
 
+- wireguard (on the router)
+
 !!
 - replace duplicity with restic (in a container?)
 - backup nextcloud DB dump

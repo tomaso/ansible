@@ -1,3 +1,11 @@
+# 192.168.1.10
+pdu.tomaso.cz
+
+[network]
+# router
+# poe switch
+# miniswitch
+
 [frontend]
 tomaso.cz
 
@@ -16,3 +24,9 @@ knode5.tomaso.cz
 
 [k8s_master]
 knode1.tomaso.cz
+
+[rpi]
+rpi1
+rpi2
+rpi3
+

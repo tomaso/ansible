@@ -9,8 +9,15 @@ The commands used in this README always explicitly specify configuration files.
 
 # Roles I use from galaxy:
 
+Defined in requirements.yml:
+
 * weldpua2008.hugo
 * geerlingguy.apache
+
+```
+ansible-galaxy collection install -r requirements.yml
+```
+
 
 # Servers
 

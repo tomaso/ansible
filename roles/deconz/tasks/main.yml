@@ -1,0 +1,17 @@
+---
+- copy:
+    src: deconz.pub.key
+    dest: /etc/apt/trusted.gpg.d/deconz.pub.key
+
+- name: Add Apt signing key of deconz
+  apt_key:
+    file: /etc/apt/trusted.gpg.d/deconz.pub.key
+    state: present
+
+- apt_repository:
+    repo: deb http://phoscon.de/apt/deconz buster main
+    state: present
+
+- package:
+    name: deconz
+    state: present

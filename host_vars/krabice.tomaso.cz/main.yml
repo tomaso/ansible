@@ -28,6 +28,34 @@ apache_global_vhost_settings: |
     AuthUserFile /data/digestpasswd.dav
     Require valid-user
   </Location>
+  Alias /Downloads /data/Downloads
+  <Directory "/data/Downloads/">
+    Options Indexes MultiViews
+    IndexOptions Charset=UTF-8
+    AllowOverride None
+    Require all granted
+  </Directory>
+  <Location /Downloads>
+    DAV On
+    AuthType Digest
+    AuthName "webdav1digest"
+    AuthUserFile /data/digestpasswd.dav
+    Require valid-user
+  </Location>
+  Alias /fun /data/fun
+  <Directory "/data/fun/">
+    Options Indexes MultiViews
+    IndexOptions Charset=UTF-8
+    AllowOverride None
+    Require all granted
+  </Directory>
+  <Location /fun>
+    DAV On
+    AuthType Digest
+    AuthName "webdav1digest"
+    AuthUserFile /data/digestpasswd.dav
+    Require valid-user
+  </Location>
 
 apache_vhosts:
   - servername: krabice.tomaso.cz
@@ -55,6 +83,12 @@ apache_vhosts_ssl:
     certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
     certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
     documentroot: /var/www/html/adminer
+
+  - servername: a.tomaso.cz
+    certificate_file: /etc/letsencrypt/live/tomaso.cz/cert.pem
+    certificate_key_file: /etc/letsencrypt/live/tomaso.cz/privkey.pem
+    certificate_chain_file: /etc/letsencrypt/live/tomaso.cz/fullchain.pem
+    documentroot: /var/www/html/a
     
 
 firewalld_zones:
@@ -65,6 +99,7 @@ firewalld_zones:
     - http
     - https
     - openvpn
+    - dns
 
 iptables_save_file: "krabice.iptables.saved"
 ip6tables_save_file: "krabice.ip6tables.saved"
@@ -72,6 +107,7 @@ ip6tables_save_file: "krabice.ip6tables.saved"
 # tomaso.cz should be first
 certbot_domains: 
   - tomaso.cz
+  - a.tomaso.cz
   - adminer.tomaso.cz
   - grafana.tomaso.cz
   - icinga.tomaso.cz
