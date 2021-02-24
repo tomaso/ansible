@@ -1,0 +1,14 @@
+MAILDIR=$HOME/mail
+
+
+# Put mail from bpf mailing list into mailbox bpf
+:0:
+* ^(From|Cc|To).*bpf@vger.kernel.org
+bpf
+
+
+# Catch-all for the rest of linux-kernel mailing list
+:0:
+* ^(From|Cc|To).*linux-kernel@vger.kernel.org
+lkml
+

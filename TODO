@@ -47,3 +47,6 @@ TODO:
 !!
 - replace duplicity with restic (in a container?)
 - backup nextcloud DB dump
+
+- influx and grafana on rpi1, backup to krabice
+

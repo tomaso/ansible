@@ -1,0 +1,22 @@
+---
+- name: Install procmail package
+  package:
+    name: procmail
+    state: present
+
+- name: Forward file for tomas
+  copy:
+    src: files/forward
+    dest: /home/tomas/.forward
+    owner: tomas
+    group: tomas
+    mode: '0644'
+
+- name: procmailrc file for tomas
+  copy:
+    src: files/procmailrc
+    dest: /home/tomas/.procmailrc
+    owner: tomas
+    group: tomas
+    mode: '0644'
+
