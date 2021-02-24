@@ -50,3 +50,4 @@ TODO:
 
 - influx and grafana on rpi1, backup to krabice
 
+- allow ufw generally: https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html

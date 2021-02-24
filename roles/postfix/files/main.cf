@@ -1,0 +1,69 @@
+disable_vrfy_command = yes
+# smtpd_banner = $myhostname ESMTP $mail_name
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+inet_interfaces = all
+inet_protocols = ipv4
+
+mydomain = kouba.xyz
+smtpd_sasl_local_domain = 
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+broken_sasl_auth_clients = yes
+smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks,check_relay_domains
+smtpd_tls_auth_only = no
+smtp_use_tls = yes
+smtpd_use_tls = yes
+smtp_tls_note_starttls_offer = yes
+smtpd_tls_key_file = /etc/letsencrypt/live/kouba.xyz/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/kouba.xyz/cert.pem
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+tls_random_source = dev:/dev/urandom
+
+# Default is to take the fqdn for the local machine
+myhostname = rpi1.kouba.xyz
+myorigin = $myhostname
+mydestination = rpi1 $myhostname localhost.$mydomain localhost $mydomain
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+
+masquerade_classes = envelope_sender, envelope_recipient, header_sender, header_recipient
+masquerade_domains = $myhostname.$mydomain
+
+mailbox_size_limit = 0
+recipient_delimiter = +
+
+mailbox_size_limit = 0
+message_size_limit = 0
+queue_minfree = 100000000
+unknown_local_recipient_reject_code = 550
+recipient_delimiter = +
+
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+
+setgid_group = postdrop
+html_directory = no
+
+queue_directory = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory = /usr/lib/postfix/sbin
+data_directory = /var/lib/postfix
+manpage_directory = /usr/share/man
+sample_directory = no
+readme_directory = no
+
+sendmail_path = /usr/sbin/sendmail.postfix
+newaliases_path = /usr/bin/newaliases.postfix
+mailq_path = /usr/bin/mailq.postfix
+
+mail_owner = postfix
+debug_peer_level = 2
+debugger_command =
+     PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
+     ddd $daemon_directory/$process_name $process_id & sleep 5
+

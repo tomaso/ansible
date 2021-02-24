@@ -1,0 +1,44 @@
+---
+- name: Install postfix
+  package:
+    name: postfix
+    state: latest
+
+- name: Open port 25 for postfix
+  community.general.ufw:
+    rule: allow
+    port: '25'
+    proto: tcp
+
+- name: Open port 587 for postfix
+  community.general.ufw:
+    rule: allow
+    port: '587'
+    proto: tcp
+
+- name: main.cf file
+  copy:
+    src: files/main.cf
+    dest: /etc/postfix/main.cf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - Restart postfix
+
+- name: master.cf file
+  copy:
+    src: files/master.cf
+    dest: /etc/postfix/master.cf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: 
+    - Restart postfix
+
+- name: Ensure postfix is running
+  service:
+    name: postfix
+    state: started
+    enabled: true
+
