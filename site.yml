@@ -44,3 +44,4 @@
     - geerlingguy.apache
     - procmail
     - postfix
+    - influxdb

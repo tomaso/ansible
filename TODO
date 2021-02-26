@@ -44,10 +44,18 @@ TODO:
 
 - wireguard (on the router)
 
-!!
-- replace duplicity with restic (in a container?)
-- backup nextcloud DB dump
+- automate recovery (from backup) test 
+  - weekly check I am able to get back few files from BB
 
-- influx and grafana on rpi1, backup to krabice
+!!
+- replace duplicity with restic (in a container?) (need to automate password prompt)
+- backup nextcloud DB dump
+- backup influxdb files/dump
+
+- influx and grafana on rpi1 (/), backup to krabice
 
 - allow ufw generally: https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html
+
+- icinga on rpi1
+
+- CD of creachet/prisecnice and other webs from github to rpi1

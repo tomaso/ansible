@@ -1,11 +1,6 @@
 ---
-#- name: Add zypper repository for go
-#  zypper_repository: 
-#    repo: 'https://download.opensuse.org/repositories/devel:languages:go/openSUSE_Factory/devel:languages:go.repo'
-#    state: present
-
 - name: Install influxdb package
-  zypper: 
+  package:
     name: influxdb
     state: present
 
